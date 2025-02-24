@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { Layout, Menu, Input, Button } from 'antd'
 import { MailOutlined, PhoneOutlined, SearchOutlined } from '@ant-design/icons'
 import './Navbar.css'
+import logo from '../../assets/logo.png'
 
 const { Header } = Layout
 
@@ -17,7 +18,7 @@ const Navbar = () => {
     return (
       <Layout className="navbar">
         <Header className="navbar-top" >
-          <div className="navbar-certification">Clean Room Cart</div>
+          {/* <div className="navbar-certification">Clean Room Cart</div> */}
           <div className="navbar-contact">
             <Link style={{textDecoration: 'none'}} to="/contact_form"><span>Contact Us</span></Link>
             <span> | </span>
@@ -37,6 +38,7 @@ const Navbar = () => {
         </Header>
         <Header className="navbar-main" style={{ backgroundColor: '#f0f0f0',marginTop: '10px' }}>
           <h1 className="navbar-logo"></h1>
+          <img style={{width:' 120px'}} src={logo} alt='logo'/>
           <div className="navbar-search">
             <Input
               placeholder="Search by Keyword, Item or Model"
@@ -54,7 +56,7 @@ const Navbar = () => {
             </a>
           </div>
         </Header>
-        <Menu mode="horizontal" className="navbar-links">
+        <Menu style={{backgroundColor:''}} mode="horizontal" className="navbar-links">
           <Menu.Item key="home"><a href="/">Home</a></Menu.Item>
           <Menu.Item key="cleanroom-supplies"><a href="#cleanroom-supplies">Cleanroom Supplies</a></Menu.Item>
           <Menu.Item key="cleanroom-equipment"><a href="#cleanroom-equipment">Cleanroom Equipment</a></Menu.Item>

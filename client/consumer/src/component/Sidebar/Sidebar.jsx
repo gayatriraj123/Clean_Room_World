@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import "./Sidebar.css";
+import { useNavigate } from "react-router-dom"; 
 
 const Sidebar = ({ onCategoryClick }) => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
+  
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -21,16 +24,20 @@ const Sidebar = ({ onCategoryClick }) => {
     fetchCategories();
   }, []);
 
-  const handleCategoryClick = async (category) => {
-    try {
-      const response = await fetch(
-        `http://localhost:5001/api/subcategory/${category.name}`
-      );
-      const data = await response.json();
-      onCategoryClick(category.name, data); // Pass category name and subcategories to parent
-    } catch (error) {
-      console.error("Error fetching subcategories:", error);
-    }
+  // const handleCategoryClick = async (category) => {
+  //   try {
+  //     const response = await fetch(
+  //       `http://localhost:5001/api/subcategory/get/${category._id}`
+  //     );
+  //     const data = await response.json();
+  //     onCategoryClick(category.name, data); // Pass category name and subcategories to parent
+  //   } catch (error) {
+  //     console.error("Error fetching subcategories:", error);
+  //   }
+  // };
+
+  const handleCategoryClick = (category) => {
+    navigate(`/category/${category._id}`); // Navigate to the category page
   };
 
   return (

@@ -20,6 +20,7 @@ import AddCategory from "./pages/admin/AddCategory";
 import AddSubcategory from "./pages/admin/AddSubcategory";
 import AddProduct from "./pages/admin/AddProduct";
 import Inquiry from "./pages/admin/Inquiry";
+import SubcategoryPage from "./component/SubcategoryPage/SubcategoryPage";
 
 // Authentication Protection
 const ProtectedRoute = ({ children, role }) => {
@@ -59,9 +60,10 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/cart" element={<CartPage />} />
           <Route path="/contact_form" element={<ContactForm />} />
-          <Route path="/category/:categoryName/:subcategory" element={<ProductList />} />
-          <Route path="/category/:categoryName" element={<Category />} />
-          <Route path="/product/:productId" element={<Product />} />
+          {/* <Route path="/category/:categoryName/:subcategory" element={<ProductList />} /> */}
+          <Route path="/category/:id" element={<Category />} />
+          <Route path="/product/:id" element={<Product />} />
+          <Route path="/subcategory/:id" element={<SubcategoryPage />} /> 
 
           {/* ✅ Catch-All Route for Consumer Inside AntdLayout */}
           {/* <Route path="*" element={<Navigate to="/login" />} /> */}

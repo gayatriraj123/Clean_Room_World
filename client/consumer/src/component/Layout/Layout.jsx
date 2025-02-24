@@ -4,6 +4,7 @@ import Navbar from "../Navbar/Navbar";
 import { Layout } from "antd";
 import { Outlet, useNavigate } from "react-router-dom";
 import Category from "../Category/Category";
+import Footer from "../Footer/Footer";
 
 const { Sider, Content } = Layout;
 
@@ -40,6 +41,7 @@ const AntdLayout = () => {
         {/* Pass selected category to Category component */}
         {/* <Category selectedCategory={selectedCategory} /> */}
       </Layout>
+      <Footer/>
     </Layout>
   );
 };

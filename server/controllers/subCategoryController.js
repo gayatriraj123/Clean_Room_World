@@ -48,36 +48,67 @@ const getSubCategories = async (req, res) => {
   }
 };
 
-//  Get Subcategories by Category Name
+//  Get Subcategories by Category Id
 const getSubcategories = async (req, res) => {
+  const { categoryId } = req.params; // Get categoryId from route params
   try {
-    console.log("Request Params:", req); // Debugging
-    const { categoryName } = req.params;
-    console.log("Requested Category:", categoryName); // Debugging
-
-    // Find category object
-    const categoryData = await Category.findOne({
-      name: { $regex: new RegExp("^" + categoryName + "$", "i") }, // Case-insensitive match
-    });
-
-    if (!categoryData) {
-      console.log("Category not found:", categoryName);
-      return res.status(404).json({ message: "Category not found" });
-    }
-
-    console.log("Found Category:", categoryData);
-
-    // Fetch subcategories based on category ID
-    const subcategories = await SubCategory.find({ categoryId: categoryData._id });
-
-    console.log("Subcategories:", subcategories);
-
-    res.json(subcategories);
+      const subcategories = await SubCategory.find({ categoryId });
+      res.json({
+        subcategories,
+        message: "Subcategories fetched successfully"
+      });
   } catch (error) {
-    console.error("Error fetching subcategories:", error);
-    res.status(500).json({ message: "Error fetching subcategories", error });
+      res.status(500).json({ message: "Error fetching subcategories", error });
   }
 };
+
+const getSubcategoryById = async (req, res) =>{
+  try {
+    const { subcategoryId } = req.params;
+    // console.log("Fetching subcategory with ID:", subcategoryId); // Debugging
+
+    const subcategory = await SubCategory.findById(subcategoryId);
+
+    if (!subcategory) {
+      return res.status(404).json({ message: "Subcategory not found" });
+    }
+
+    res.json({ subcategory, message: "Subcategory fetched successfully" });
+  } catch (error) {
+    console.error("Error fetching subcategory:", error);
+    res.status(500).json({ message: "Error fetching subcategory", error });
+  }
+}
+
+// const getSubcategories = async (req, res) => {
+//   try {
+//     console.log("Request Params:", req); // Debugging
+//     const { categoryName } = req.params;
+//     console.log("Requested Category:", categoryName); // Debugging
+
+//     // Find category object
+//     const categoryData = await Category.findOne({
+//       name: { $regex: new RegExp("^" + categoryName + "$", "i") }, // Case-insensitive match
+//     });
+
+//     if (!categoryData) {
+//       console.log("Category not found:", categoryName);
+//       return res.status(404).json({ message: "Category not found" });
+//     }
+
+//     console.log("Found Category:", categoryData);
+
+//     // Fetch subcategories based on category ID
+//     const subcategories = await SubCategory.find({ categoryId: categoryData._id });
+
+//     console.log("Subcategories:", subcategories);
+
+//     res.json(subcategories);
+//   } catch (error) {
+//     console.error("Error fetching subcategories:", error);
+//     res.status(500).json({ message: "Error fetching subcategories", error });
+//   }
+// };
 
 const deleteCategory = async (req, res) => {
   try {
@@ -121,4 +152,4 @@ const updateCategory = async (req, res) => {
 
 
 // Export all functions
-module.exports = { addSubCategory, getSubCategories, getSubcategories, deleteCategory, updateCategory };
+module.exports = { addSubCategory, getSubCategories, getSubcategories, getSubcategoryById, deleteCategory, updateCategory };
